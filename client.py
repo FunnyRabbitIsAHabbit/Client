@@ -53,7 +53,7 @@ class Client(object):
                 sock.sendall(f'get {name}\n'.encode('utf8'))
 
                 data = sock.recv(1024)
-                msg = data.decode('utf8')
+                msg = data.decode('utf8', 'ignore')
                 if msg == 'ok\n\n':
                     return {}
 
@@ -99,7 +99,7 @@ class Client(object):
                 msg = f'put {key} {value} {timestamp}\n'
                 sock.sendall(msg.encode('utf8'))
 
-                received = sock.recv(1024).decode('utf8')
+                received = sock.recv(1024).decode('utf8', 'ignore')
 
                 if received == 'error\nwrong command\n\n':
                     raise ClientError
