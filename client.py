@@ -18,7 +18,8 @@ class ClientError(Exception):
 class Client(object):
     """
     Socket creating connection embedded,
-    this class has methods put and get - to send and get feedback on data
+    this class has methods put and get -
+    to send and get feedback on data
     and to receive data, respectively
 
     """
@@ -49,7 +50,8 @@ class Client(object):
         """
 
         try:
-            with socket.create_connection((self.host, self.port), self.timeout) as sock:
+            with socket.create_connection((self.host, self.port),
+                                          self.timeout) as sock:
                 sock.sendall(f'get {name}\n'.encode('utf8'))
 
                 data = sock.recv(1024)
@@ -73,7 +75,8 @@ class Client(object):
                     lst.extend(msg[i][3:])
                     metrics[msg[i][0]].append(tuple(lst))
 
-                metrics = {key: sorted(metrics[key], key=lambda x: x[0])
+                metrics = {key: sorted(metrics[key],
+                                       key=lambda x: x[0])
                            for key in metrics}
 
                 return metrics
@@ -95,7 +98,8 @@ class Client(object):
 
         try:
 
-            with socket.create_connection((self.host, self.port), self.timeout) as sock:
+            with socket.create_connection((self.host, self.port),
+                                          self.timeout) as sock:
                 msg = f'put {key} {value} {timestamp}\n'
                 sock.sendall(msg.encode('utf8'))
 
