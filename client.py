@@ -49,7 +49,7 @@ class Client(object):
         """
 
         try:
-            with socket.create_connection((self.host, self.port)) as sock:
+            with socket.create_connection((self.host, self.port), self.timeout) as sock:
                 sock.sendall(f'get {name}\n'.encode('utf8'))
 
                 data = sock.recv(1024)
@@ -95,7 +95,7 @@ class Client(object):
 
         try:
 
-            with socket.create_connection((self.host, self.port)) as sock:
+            with socket.create_connection((self.host, self.port), self.timeout) as sock:
                 msg = f'put {key} {value} {timestamp}\n'
                 sock.sendall(msg.encode('utf8'))
 
